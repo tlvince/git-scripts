@@ -2,10 +2,10 @@
 # Git: list changed filenames across all branches.
 # Copyright 2011 Tom Vincent <http://tlvince.com/contact/>
 
-[[ $@ ]] || exit 1
+[[ -d ".git" ]] || exit 1
 args="$@"
 
-# Explictly search for the given filenames by appending start and end of line
+# Explictly filter the given filenames by appending start and end of line
 # markers:
 #
 #   $@ -> ^$1$|^$2$|^$3$|...|^$n$'
