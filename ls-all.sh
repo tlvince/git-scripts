@@ -8,7 +8,7 @@ args="$@"
 # Explictly search for the given filenames by appending start and end of line
 # markers:
 #
-#   $@ -> ^$1$|^$2$|...|^$n$'
+#   $@ -> ^$1$|^$2$|^$3$|...|^$n$'
 #
 # Append a final '^$' to match empty lines.
 patt="^${args// /$|^}$|^$"
