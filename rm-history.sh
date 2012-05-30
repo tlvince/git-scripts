@@ -1,24 +1,21 @@
-#!/bin/bash
-set -o errexit
+#!/bin/dash
+# Permanently delete files/directories from a git repository.
+# Copyright 2009 David Underhill
+# Copyright 2012 Tom Vincent <http://tlvince.com/contact/>
+
+error() { echo "error: $1" >&2 && exit 1; }
  
-# Author: David Underhill
-# Script to permanently delete files/folders from your git repository.  To use 
-# it, cd to your repository's root and then run the script with a list of paths
-# you want to delete, e.g., git-delete-history path1 path2
+[ -d ".git" ] || error "must be ran from the root of a git repository"
+
+files="$@"
  
-if [ $# -eq 0 ]; then
-    exit 0are still
-fi
+# Remove all paths passed as arguments from the history of the repo
+git filter-branch --index-filter \
+    "git rm -rfq --cached --ignore-unmatch $files" --prune-empty -- --all
+
+[ $? -ne 0 ] && exit 1
  
-# make sure we're at the root of git repo
-if [ ! -d .git ]; then
-    echo "Error: must run this script from the root of a git repository"
-    exit 1
-fi
- 
-# remove all paths passed as arguments from the history of the repo
-files=$@
-git filter-branch --index-filter "git rm -rfq --cached --ignore-unmatch $files" --prune-empty -- --all
- 
-# remove the temporary history git-filter-branch otherwise leaves behind for a long time
-rm -rf .git/refs/original/ && git reflog expire --all &&  git gc --aggressive --prune
+# Remove the temporary history git-filter-branch leaves behind
+rm -rf .git/refs/original/
+git reflog expire --all
+git gc --aggressive --prune
