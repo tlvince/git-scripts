@@ -1,0 +1,7 @@
+#!/bin/bash
+set -B
+tree=../../httpdocs
+mkdir -p "$tree"
+git --work-tree="$tree" checkout -f
+eval mkdir -p "$tree/app/tmp/{cache/{models,persistent,views},logs,sessions,tests}"
+chmod -R 777 "$tree/app/tmp"
