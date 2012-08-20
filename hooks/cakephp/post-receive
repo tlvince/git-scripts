@@ -6,5 +6,7 @@ tmp=app/tmp/{cache/{models,persistent,views},logs,sessions,tests}
 
 mkdir -p "$tree"
 git --work-tree="$tree" checkout -f
+
+eval rm -rf "$tree/$tmp"
 eval mkdir -p "$tree/$tmp"
 eval chmod 777 "$tree/$tmp"
