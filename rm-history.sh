@@ -10,8 +10,8 @@ error() { echo "error: $1" >&2 && exit 1; }
 files="$@"
  
 # Remove all paths passed as arguments from the history of the repo
-git filter-branch --index-filter \
-    "git rm -rfq --cached --ignore-unmatch $files" --prune-empty -- --all
+git filter-branch --tag-name-filter cat --index-filter \
+    "git rm -rfq --cached --ignore-unmatch $files" --prune-empty -- --all --tags
 
 [ $? -ne 0 ] && exit 1
  
