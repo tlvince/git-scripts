@@ -1,0 +1,3 @@
+[submodule "aliases/vendor/git-submodule-rm"]
+	path = aliases/vendor/git-submodule-rm
+	url = git://gist.github.com/2984077.git
