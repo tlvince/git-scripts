@@ -1,0 +1,7 @@
+# Git scripts
+
+Git-specific shell scripts.
+
+## Author
+
+© 2013 Tom Vincent <http://tlvince.com/contact>
